@@ -1,0 +1,195 @@
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Fraunces", Georgia, Cambria, "Times New Roman", Times, serif;
+  --font-sans: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+}
+
+:root {
+  --oxford-cover: #0f291e;
+  --oxford-cover-deep: #0a1c14;
+  --oxford-forest: #14532d;
+  --ivory-page: #faf6ee;
+  --ivory-inset: #f2ece0;
+  --ivory-edge: #e5dccb;
+  --brass: #b08d57;
+  --brass-deep: #8c6b32;
+  --ink: #1c2420;
+  --ink-muted: #4a554e;
+  --crimson: #991b1b;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: #0c2218;
+  background-image: radial-gradient(circle at 20% 10%, rgba(176, 141, 87, 0.08), transparent 45%),
+    radial-gradient(circle at 80% 90%, rgba(20, 83, 45, 0.25), transparent 50%);
+  color: var(--ink);
+  overflow-x: hidden;
+}
+
+/* Book opening & page slide animations (compositor-only transform & opacity) */
+@keyframes bookOpenReveal {
+  0% {
+    opacity: 0;
+    transform: perspective(1600px) scale(0.96) translateY(12px);
+  }
+  100% {
+    opacity: 1;
+    transform: perspective(1600px) scale(1) translateY(0);
+  }
+}
+
+@keyframes pageSlideForward {
+  0% {
+    opacity: 0;
+    transform: translateX(28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes pageSlideBackward {
+  0% {
+    opacity: 0;
+    transform: translateX(-28px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-book-open {
+  animation: bookOpenReveal 380ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-page-forward {
+  animation: pageSlideForward 240ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.animate-page-backward {
+  animation: pageSlideBackward 240ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-book-open,
+  .animate-page-forward,
+  .animate-page-backward {
+    animation: none !important;
+  }
+}
+
+/* Subtle archival book spine & page gutter */
+.book-spine-shadow-left {
+  background: linear-gradient(
+    to left,
+    rgba(15, 41, 30, 0.14) 0%,
+    rgba(15, 41, 30, 0.04) 24px,
+    transparent 64px
+  );
+}
+
+.book-spine-shadow-right {
+  background: linear-gradient(
+    to right,
+    rgba(15, 41, 30, 0.14) 0%,
+    rgba(15, 41, 30, 0.04) 24px,
+    transparent 64px
+  );
+}
+
+/* Clean tabular numerals for all study timers & ledger columns */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Quiet archival scrollbar inside book pages */
+.book-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.book-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.book-scroll::-webkit-scrollbar-thumb {
+  background: rgba(140, 107, 50, 0.25);
+  border-radius: 3px;
+}
+
+.book-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(140, 107, 50, 0.45);
+}
+
+/* Lightweight CSS 3D Study Desk Onboarding */
+.desk-3d-stage {
+  perspective: 1400px;
+  transform-style: preserve-3d;
+}
+
+.desk-3d-surface {
+  transform-style: preserve-3d;
+  transition: transform 280ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes floatGentle {
+  0%, 100% {
+    transform: translate3d(0, 0, 24px);
+  }
+  50% {
+    transform: translate3d(0, -6px, 24px);
+  }
+}
+
+@keyframes bookCoverOpen {
+  0% {
+    transform: rotateY(-12deg) rotateX(12deg) scale(0.95);
+    opacity: 0;
+  }
+  100% {
+    transform: rotateY(0deg) rotateX(8deg) scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-desk-float {
+  animation: floatGentle 4.8s ease-in-out infinite;
+}
+
+.animate-desk-book {
+  animation: bookCoverOpen 600ms cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-desk-float,
+  .animate-desk-book {
+    animation: none !important;
+  }
+  .desk-3d-surface {
+    transition: none !important;
+  }
+}
+
+/* Clean Print Mode for AI Predicted Examination Papers */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #111827 !important;
+  }
+  .no-print {
+    display: none !important;
+  }
+  .print-paper-sheet {
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: 100% !important;
+    background: #ffffff !important;
+  }
+}
+

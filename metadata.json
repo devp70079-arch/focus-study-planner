@@ -1,0 +1,10 @@
+{
+  "name": "Its Last Chance For Focus",
+  "description": "Comprehensive student study hours tracker with Focus Guardian foreground monitoring, anti-distraction focus modes, ambient sound synthesis, next-day night schedule planner, weekly time blocker, task completion analytics, and bilingual (English & Hindi) voice assistant.",
+  "requestFramePermissions": [
+    "microphone"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
